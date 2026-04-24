@@ -262,7 +262,7 @@
           <p class="muted">
             The surface stays minimal by default. Internal updates are available only when explicitly opened.
           </p>
-          <p class="mono">API: GET /api/updates</p>
+          <p class="mono">Source: /updates.json (daily Notion sync)</p>
         </aside>
       </div>
     </div>
@@ -278,7 +278,7 @@
       <span id="dockState">open</span>
     </div>
     <div class="log-body">
-      <p class="muted" id="updatesMeta">Loading rows from Notion...</p>
+      <p class="muted" id="updatesMeta">Loading synced data...</p>
       <table>
         <thead>
           <tr>
@@ -359,17 +359,20 @@
     async function loadUpdates() {
       const meta = document.getElementById("updatesMeta");
       try {
-        const response = await fetch("/api/updates");
+        const response = await fetch("/updates.json", { cache: "no-store" });
         const payload = await response.json();
         if (!response.ok) {
-          throw new Error(payload.error || "Unknown API error");
+          throw new Error(payload.error || "Unknown data error");
         }
         renderRows(payload.items || []);
-        meta.textContent = `Loaded ${payload.items.length} row(s) from Notion database.`;
+        const generatedAt = payload.generatedAt
+          ? new Date(payload.generatedAt).toLocaleString()
+          : "unknown time";
+        meta.textContent = `Loaded ${payload.items.length} row(s). Last sync: ${generatedAt}.`;
       } catch (err) {
         document.getElementById("updatesBody").innerHTML =
           `<tr><td colspan="4" class="muted">${escapeHtml(err.message)}</td></tr>`;
-        meta.textContent = "Could not load data from Notion.";
+        meta.textContent = "Could not load synced data.";
       }
     }
 

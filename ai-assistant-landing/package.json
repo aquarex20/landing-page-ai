@@ -6,7 +6,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "sync:notion": "node scripts/sync-notion-data.js"
   },
   "dependencies": {
     "@notionhq/client": "^2.2.15",
