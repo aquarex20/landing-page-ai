@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Assistant | The Workforce Shift</title>
+  <style>
+    :root {
+      --bg: #070a13;
+      --bg-soft: #0f1629;
+      --card: rgba(20, 30, 54, 0.56);
+      --border: rgba(180, 204, 255, 0.17);
+      --text: #edf4ff;
+      --muted: #9eadc8;
+      --accent: #79a9ff;
+      --gold: #f4bd54;
+      --good: #4fd598;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; overflow-x: hidden; }
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+      background:
+        radial-gradient(1000px 520px at 15% -10%, #22356a 0%, transparent 50%),
+        radial-gradient(900px 500px at 90% -20%, #402763 0%, transparent 48%),
+        linear-gradient(180deg, #080c17 0%, #070a13 100%);
+    }
+    .grid-noise {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(115, 140, 193, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(115, 140, 193, 0.06) 1px, transparent 1px);
+      background-size: 38px 38px;
+      mask-image: radial-gradient(circle at 50% 15%, black, transparent 75%);
+      pointer-events: none;
+      z-index: -2;
+    }
+    .orbs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(35px);
+      opacity: 0.26;
+      animation: drift 10s ease-in-out infinite alternate;
+    }
+    .orb.one { width: 240px; height: 240px; background: #3958a9; left: -40px; top: 150px; }
+    .orb.two { width: 200px; height: 200px; background: #7b3db2; right: 80px; top: 60px; animation-delay: 1s; }
+    .orb.three { width: 160px; height: 160px; background: #1c8d8b; left: 32%; top: 460px; animation-delay: 2s; }
+    @keyframes drift {
+      0% { transform: translateY(-12px) translateX(0); }
+      100% { transform: translateY(16px) translateX(20px); }
+    }
+    .container { width: min(1140px, 92vw); margin: 0 auto; }
+    .hero { padding: 84px 0 44px; position: relative; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      border: 1px solid #37508c;
+      background: rgba(65, 93, 160, 0.16);
+      font-size: 12px;
+      color: #d0deff;
+      padding: 7px 13px;
+    }
+    .pulse {
+      width: 8px; height: 8px; border-radius: 999px;
+      background: var(--good);
+      box-shadow: 0 0 0 0 rgba(79, 213, 152, 0.6);
+      animation: ping 1.7s infinite;
+    }
+    @keyframes ping {
+      0% { box-shadow: 0 0 0 0 rgba(79, 213, 152, 0.6); }
+      70% { box-shadow: 0 0 0 12px rgba(79, 213, 152, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(79, 213, 152, 0); }
+    }
+    h1 {
+      margin: 18px 0 16px;
+      max-width: 850px;
+      font-size: clamp(2.4rem, 6vw, 4.25rem);
+      line-height: 1.07;
+      letter-spacing: -0.02em;
+    }
+    .shine {
+      background: linear-gradient(130deg, #dbe8ff 0%, #8fb6ff 42%, #f4bd54 85%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .lead {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+    .kpi-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .kpi {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 14px;
+      padding: 16px;
+      backdrop-filter: blur(10px);
+    }
+    .kpi .num { font-size: 1.7rem; font-weight: 700; }
+    .kpi .lbl { color: var(--muted); font-size: 0.9rem; }
+    .sections {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 14px;
+      margin-top: 22px;
+    }
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(15, 25, 46, 0.66);
+      backdrop-filter: blur(12px);
+      padding: 18px;
+    }
+    .title { margin: 0 0 10px; font-size: 1.2rem; }
+    .muted { color: var(--muted); }
+    .feature-list { display: grid; gap: 10px; margin-top: 12px; }
+    .feature {
+      border: 1px solid rgba(145, 170, 218, 0.2);
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(35, 49, 82, 0.3);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .feature:hover { transform: translateY(-2px); border-color: rgba(186, 206, 246, 0.4); }
+    .feature h3 { margin: 0 0 6px; font-size: .98rem; }
+    .feature p { margin: 0; color: var(--muted); font-size: .92rem; }
+    .ctas { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 11px;
+      padding: 10px 14px;
+      color: #08101f;
+      background: linear-gradient(120deg, #7fb0ff, #f4bd54);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn.secondary {
+      color: #d8e5ff;
+      background: rgba(52, 71, 110, 0.5);
+      border: 1px solid #4964a0;
+    }
+    .footer { padding: 38px 0 60px; color: var(--muted); font-size: .9rem; }
+    .log-dock {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      width: min(560px, calc(100vw - 30px));
+      background: rgba(8, 14, 28, 0.85);
+      border: 1px solid rgba(155, 182, 231, 0.28);
+      border-radius: 14px;
+      transform: translateY(calc(100% - 44px));
+      transition: transform .35s ease;
+      backdrop-filter: blur(16px);
+      z-index: 10;
+    }
+    .log-dock.open { transform: translateY(0); }
+    .log-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      cursor: pointer;
+      color: #d5e5ff;
+      font-size: .88rem;
+      border-bottom: 1px solid rgba(155, 182, 231, 0.15);
+    }
+    .log-body { max-height: 280px; overflow: auto; padding: 8px 12px 14px; }
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid rgba(155, 182, 231, 0.15); vertical-align: top; }
+    th { color: #9fb5df; font-size: .76rem; letter-spacing: .03em; text-transform: uppercase; }
+    .status-pill {
+      display: inline-block;
+      border-radius: 999px;
+      border: 1px solid #5a79b8;
+      background: rgba(70, 102, 170, 0.38);
+      padding: 2px 8px;
+      font-size: .78rem;
+    }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem; }
+    @media (max-width: 920px) {
+      .sections { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-noise"></div>
+  <div class="orbs">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+  </div>
+
+  <header class="hero">
+    <div class="container">
+      <div class="chip"><span class="pulse"></span> First generation workforce robot</div>
+      <h1>
+        A discreet <span class="shine">AI operator</span> that works like a human teammate,
+        at up to 10x lower cost.
+      </h1>
+      <p class="lead">
+        Built for consulting firms, this assistant can present documents, listen during live exchanges,
+        and support high-pressure brainstorming in real time. It stays useful, adaptable, and slightly mysterious.
+      </p>
+
+      <div class="kpi-wrap">
+        <div class="kpi"><div class="num" id="jobsNum">0</div><div class="lbl">job patterns acquired</div></div>
+        <div class="kpi"><div class="num">24/7</div><div class="lbl">operational availability</div></div>
+        <div class="kpi"><div class="num">10x</div><div class="lbl">cost efficiency potential</div></div>
+        <div class="kpi"><div class="num">Live</div><div class="lbl">meeting intelligence loop</div></div>
+      </div>
+
+      <div class="sections">
+        <section class="panel">
+          <h2 class="title">What it does in the room</h2>
+          <p class="muted">
+            This is not a simple chatbot. It acts as a role-aware assistant that can acquire any skill needed for the mission.
+          </p>
+          <div class="feature-list">
+            <article class="feature">
+              <h3>Document Performance Mode</h3>
+              <p>Understands and presents strategic documents with concise, confident delivery.</p>
+            </article>
+            <article class="feature">
+              <h3>Brainstorm Co-creation</h3>
+              <p>Turns free-form discussions into options, frameworks, and prioritized actions.</p>
+            </article>
+            <article class="feature">
+              <h3>Ambient Listening Assistance</h3>
+              <p>Tracks ongoing context and surfaces the next best input at the right moment.</p>
+            </article>
+          </div>
+          <div class="ctas">
+            <button class="btn" id="revealBtn">Reveal Version Log</button>
+            <button class="btn secondary" id="pulseBtn">Run Suspense Pulse</button>
+          </div>
+        </section>
+
+        <aside class="panel">
+          <h2 class="title">Operator Notes</h2>
+          <p class="muted">
+            It is designed to blend into existing teams and execute work with composure, precision, and discretion.
+          </p>
+          <p class="muted">
+            The surface stays minimal by default. Internal updates are available only when explicitly opened.
+          </p>
+          <p class="mono">API: GET /api/updates</p>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <footer class="footer">
+    <div class="container">AI Assistant initiative — consulting-grade, human-like operations, radically lower cost profile.</div>
+  </footer>
+
+  <section class="log-dock" id="logDock" aria-label="Version log">
+    <div class="log-top" id="logToggle">
+      <span>Version Log Window (discreet)</span>
+      <span id="dockState">open</span>
+    </div>
+    <div class="log-body">
+      <p class="muted" id="updatesMeta">Loading rows from Notion...</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>Changes</th>
+            <th>Time</th>
+            <th>Version</th>
+          </tr>
+        </thead>
+        <tbody id="updatesBody">
+          <tr><td colspan="4" class="muted">No data yet.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <script>
+    const logDock = document.getElementById("logDock");
+    const logToggle = document.getElementById("logToggle");
+    const revealBtn = document.getElementById("revealBtn");
+    const dockState = document.getElementById("dockState");
+    const pulseBtn = document.getElementById("pulseBtn");
+
+    let dockOpen = false;
+    function setDock(open) {
+      dockOpen = open;
+      logDock.classList.toggle("open", open);
+      dockState.textContent = open ? "close" : "open";
+    }
+    logToggle.addEventListener("click", () => setDock(!dockOpen));
+    revealBtn.addEventListener("click", () => setDock(true));
+    setDock(false);
+
+    pulseBtn.addEventListener("click", () => {
+      document.body.animate(
+        [
+          { filter: "brightness(1)" },
+          { filter: "brightness(1.13)" },
+          { filter: "brightness(1)" }
+        ],
+        { duration: 1200, easing: "ease-in-out" }
+      );
+      const jobsNum = document.getElementById("jobsNum");
+      let count = 0;
+      const target = 128;
+      const step = () => {
+        count += 4;
+        jobsNum.textContent = String(Math.min(count, target));
+        if (count < target) requestAnimationFrame(step);
+      };
+      step();
+    });
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function renderRows(items) {
+      const body = document.getElementById("updatesBody");
+      if (!items.length) {
+        body.innerHTML = '<tr><td colspan="4" class="muted">No rows returned from Notion.</td></tr>';
+        return;
+      }
+      body.innerHTML = items.map((item) => `
+        <tr>
+          <td><span class="status-pill">${escapeHtml(item.status || "N/A")}</span></td>
+          <td>${escapeHtml(item.changes || "")}</td>
+          <td>${escapeHtml(item.time || "")}</td>
+          <td>${escapeHtml(item.version || "")}</td>
+        </tr>
+      `).join("");
+    }
+
+    async function loadUpdates() {
+      const meta = document.getElementById("updatesMeta");
+      try {
+        const response = await fetch("/api/updates");
+        const payload = await response.json();
+        if (!response.ok) {
+          throw new Error(payload.error || "Unknown API error");
+        }
+        renderRows(payload.items || []);
+        meta.textContent = `Loaded ${payload.items.length} row(s) from Notion database.`;
+      } catch (err) {
+        document.getElementById("updatesBody").innerHTML =
+          `<tr><td colspan="4" class="muted">${escapeHtml(err.message)}</td></tr>`;
+        meta.textContent = "Could not load data from Notion.";
+      }
+    }
+
+    loadUpdates();
+  </script>
+</body>
+</html>
