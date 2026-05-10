@@ -1,4 +1,59 @@
 {
-  "generatedAt": null,
-  "items": []
+  "generatedAt": "2026-05-10T07:20:30.441Z",
+  "items": [
+    {
+      "status": "Done",
+      "changes": "Fixed Documents Indexation UI bug",
+      "time": "",
+      "version": "1"
+    },
+    {
+      "status": "Done",
+      "changes": "Fixed  Gmail API Email",
+      "time": "",
+      "version": "1"
+    },
+    {
+      "status": "Done",
+      "changes": "Fixed joining meeting ",
+      "time": "",
+      "version": "1"
+    },
+    {
+      "status": "Not started",
+      "changes": "Smarter Meeting AI",
+      "time": "",
+      "version": ""
+    },
+    {
+      "status": "Done",
+      "changes": "MCP structure refined for smarter agent",
+      "time": "",
+      "version": "1"
+    },
+    {
+      "status": "In progress",
+      "changes": "Routing AI agent’s audio to meeting",
+      "time": "",
+      "version": "2"
+    },
+    {
+      "status": "Not started",
+      "changes": "Implementing Smarter Navigator",
+      "time": "",
+      "version": ""
+    },
+    {
+      "status": "Done",
+      "changes": "Plan for Smarter Navigator",
+      "time": "",
+      "version": "1"
+    },
+    {
+      "status": "Done",
+      "changes": "Audio Routing Architecture of System",
+      "time": "",
+      "version": "1"
+    }
+  ]
 }
