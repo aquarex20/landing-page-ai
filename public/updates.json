@@ -1,41 +1,17 @@
 {
-  "generatedAt": "2026-05-11T08:19:28.663Z",
+  "generatedAt": "2026-05-12T07:36:13.986Z",
   "items": [
     {
-      "status": "Done",
-      "changes": "Fixed Documents Indexation UI bug",
-      "time": "",
-      "version": "1"
-    },
-    {
-      "status": "Done",
-      "changes": "Fixed  Gmail API Email",
-      "time": "",
-      "version": "1"
-    },
-    {
-      "status": "Done",
-      "changes": "Fixed joining meeting ",
-      "time": "",
-      "version": "1"
-    },
-    {
-      "status": "Not started",
-      "changes": "Smarter Meeting AI",
+      "status": "In progress",
+      "changes": "Installing Setup for virtual mac os, to better control routing and audio input/output",
       "time": "",
       "version": ""
     },
     {
       "status": "Done",
-      "changes": "MCP structure refined for smarter agent",
+      "changes": "Audio Routing Architecture of System",
       "time": "",
       "version": "1"
-    },
-    {
-      "status": "In progress",
-      "changes": "Routing AI agent’s audio to meeting",
-      "time": "",
-      "version": "2"
     },
     {
       "status": "Not started",
@@ -50,8 +26,38 @@
       "version": "1"
     },
     {
+      "status": "Not started",
+      "changes": "Smarter Meeting AI",
+      "time": "",
+      "version": ""
+    },
+    {
+      "status": "In progress",
+      "changes": "Routing AI agent’s audio to meeting",
+      "time": "",
+      "version": "2"
+    },
+    {
       "status": "Done",
-      "changes": "Audio Routing Architecture of System",
+      "changes": "MCP structure refined for smarter agent",
+      "time": "",
+      "version": "1"
+    },
+    {
+      "status": "Done",
+      "changes": "Fixed joining meeting ",
+      "time": "",
+      "version": "1"
+    },
+    {
+      "status": "Done",
+      "changes": "Fixed Documents Indexation UI bug",
+      "time": "",
+      "version": "1"
+    },
+    {
+      "status": "Done",
+      "changes": "Fixed  Gmail API Email",
       "time": "",
       "version": "1"
     }
